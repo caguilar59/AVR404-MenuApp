@@ -21,8 +21,8 @@ MonoBehaviour:
       m_GuidLow: 4776335865998858636
       m_GuidHigh: 10412332901850446993
     m_SerializedTextureGuid:
-      m_GuidLow: 0
-      m_GuidHigh: 0
+      m_GuidLow: 2469227747523144124
+      m_GuidHigh: 11234850699190161272
     m_Size: {x: 0.08, y: 0}
     m_SpecifySize: 0
     m_Name: BurgerMarker
@@ -31,8 +31,8 @@ MonoBehaviour:
       m_GuidLow: 4925139602792042258
       m_GuidHigh: 4125054984698700192
     m_SerializedTextureGuid:
-      m_GuidLow: 0
-      m_GuidHigh: 0
+      m_GuidLow: 18281326381456122453
+      m_GuidHigh: 1075396324299376986
     m_Size: {x: 0.08, y: 0}
     m_SpecifySize: 0
     m_Name: PizzaMarker
@@ -41,8 +41,8 @@ MonoBehaviour:
       m_GuidLow: 5199120466161334322
       m_GuidHigh: 10734081258961401756
     m_SerializedTextureGuid:
-      m_GuidLow: 0
-      m_GuidHigh: 0
+      m_GuidLow: 3752786296893493590
+      m_GuidHigh: 16770700232218310392
     m_Size: {x: 0, y: 0}
     m_SpecifySize: 0
     m_Name: TacoMarker

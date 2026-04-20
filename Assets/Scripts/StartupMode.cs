@@ -5,17 +5,21 @@ using UnityEngine.XR.ARFoundation;
 
 public class StartupMode : MonoBehaviour
 {
-
     [SerializeField] string nextMode = "Scan";
+
+    public void OnStartPressed()
+    {
+        Debug.Log("Start button pressed");
+
+        UIController.ShowUI("Scan"); // switch UI
+        InteractionController.EnableMode(nextMode); // switch mode
+    }
 
     private void OnEnable()
     {
         UIController.ShowUI("Startup");
     }
 
-
-
-    // Update is called once per frame
     void Update()
     {
         if (ARSession.state == ARSessionState.Unsupported)
@@ -24,7 +28,8 @@ public class StartupMode : MonoBehaviour
         }
         else if (ARSession.state >= ARSessionState.Ready)
         {
-            InteractionController.EnableMode(nextMode);
+            // You can REMOVE this if you only want button control
+            // InteractionController.EnableMode(nextMode);
         }
     }
 }
