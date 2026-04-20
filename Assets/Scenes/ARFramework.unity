@@ -625,16 +625,19 @@ MonoBehaviour:
     - Scan
     - Main
     - NonAR
+    - 'Title '
     _keys:
     - Startup
     - Scan
     - Main
     - NonAR
+    - 'Title '
     _values:
     - {fileID: 1812930753}
     - {fileID: 1235407939}
     - {fileID: 1506677221}
     - {fileID: 1759833950}
+    - {fileID: 1351393458}
 --- !u!114 &97211696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,38 +1000,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 355438522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eac5fe4a4cb6345877283a1415fef7, type: 3}
+  m_Script: {fileID: 11500000, guid: 42d72bf5508838847bc4013c4d55df0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionModes:
-    reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
-      isExpanded: 1
-      label:
-        m_Text: Keys
-        m_Image: {fileID: 0}
-        m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
-      elementDisplayType: 0
-      elementNameProperty: 
-      elementNameOverride: 
-      elementIcon: {fileID: 0}
-    reqReferences: {fileID: 0}
-    isExpanded: 1
-    _keyValues:
-    - 
-    _keys:
-    - 
-    _values:
-    - {fileID: 0}
 --- !u!1 &607239311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,14 +1786,13 @@ GameObject:
   - component: {fileID: 1235407941}
   - component: {fileID: 1235407940}
   - component: {fileID: 1235407939}
-  - component: {fileID: 1235407942}
   m_Layer: 5
   m_Name: Scan UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!225 &1235407939
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1861,18 +1834,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1235407942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235407938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c3d2ba7fdecd340a166555d8e2b9e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1239283740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,6 +1965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1245343118}
   - component: {fileID: 1245343117}
+  - component: {fileID: 1245343119}
   m_Layer: 0
   m_Name: Interaction Controller
   m_TagString: Untagged
@@ -2060,6 +2022,56 @@ Transform:
   - {fileID: 355438523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1245343119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245343116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eac5fe4a4cb6345877283a1415fef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionModes:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - Startup
+    - NonAR
+    - Scan
+    - Main
+    _keys:
+    - Startup
+    - NonAR
+    - Scan
+    - Main
+    _values:
+    - {fileID: 1330133475}
+    - {fileID: 1443330210}
+    - {fileID: 35928056}
+    - {fileID: 355438522}
 --- !u!1 &1262041041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,18 +2155,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1330133477}
-        m_TargetAssemblyTypeName: StartupMode, Assembly-CSharp
-        m_MethodName: OnStartPressed
-        m_Mode: 1
+      - m_Target: {fileID: 1245343119}
+        m_TargetAssemblyTypeName: InteractionController, Assembly-CSharp
+        m_MethodName: EnableMode
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Scan
+          m_StringArgument: Startup
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &1262041044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2321,16 +2333,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1245343119}
+        m_TargetAssemblyTypeName: InteractionController, Assembly-CSharp
+        m_MethodName: EnableMode
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Title
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1346962776
@@ -2382,13 +2394,14 @@ GameObject:
   - component: {fileID: 1351393455}
   - component: {fileID: 1351393457}
   - component: {fileID: 1351393456}
+  - component: {fileID: 1351393458}
   m_Layer: 5
   m_Name: Title Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1351393455
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2447,6 +2460,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351393454}
   m_CullTransparentMesh: 1
+--- !u!225 &1351393458
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351393454}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1443330210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2502,7 +2527,6 @@ GameObject:
   - component: {fileID: 1506677223}
   - component: {fileID: 1506677222}
   - component: {fileID: 1506677221}
-  - component: {fileID: 1506677224}
   m_Layer: 5
   m_Name: Main UI
   m_TagString: Untagged
@@ -2552,18 +2576,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1506677224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506677220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d72bf5508838847bc4013c4d55df0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1726825603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,7 +2721,6 @@ GameObject:
   - component: {fileID: 1759833952}
   - component: {fileID: 1759833951}
   - component: {fileID: 1759833950}
-  - component: {fileID: 1759833953}
   m_Layer: 5
   m_Name: NonAR UI
   m_TagString: Untagged
@@ -2760,18 +2771,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1759833953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759833949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80dcbdf420723a4e86166d4d7ec7efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1812930752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,7 +2782,6 @@ GameObject:
   - component: {fileID: 1812930755}
   - component: {fileID: 1812930754}
   - component: {fileID: 1812930753}
-  - component: {fileID: 1812930756}
   m_Layer: 5
   m_Name: Startup Ui
   m_TagString: Untagged
@@ -2831,19 +2829,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1812930756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812930752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c82917a4feefcb448acf64c050bf255, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextMode: Scan
 --- !u!1 &1888406890
 GameObject:
   m_ObjectHideFlags: 0
