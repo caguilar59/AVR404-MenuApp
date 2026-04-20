@@ -9,8 +9,8 @@ public class AddPictureMode : MonoBehaviour
 {
     public ImageInfo imageInfo;
 
-    [SerializeField] ARRaycastManager raycaster;
-    [SerializeField] GameObject placedPrefab;
+    [SerializeField] private ARRaycastManager raycaster;
+    [SerializeField] private GameObject placedPrefab;
 
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private GameObject spawnedObject;
@@ -18,6 +18,7 @@ public class AddPictureMode : MonoBehaviour
     private void OnEnable()
     {
         UIController.ShowUI("AddPicture");
+        spawnedObject = null;
     }
 
     public void OnPlaceObject(InputValue value)
@@ -39,8 +40,8 @@ public class AddPictureMode : MonoBehaviour
             if (spawnedObject == null)
             {
                 spawnedObject = Instantiate(placedPrefab, hitPose.position, rotation);
+                spawnedObject.transform.SetParent(transform.parent);
 
-                // 🔥 APPLY IMAGE HERE
                 FramedPhoto photo = spawnedObject.GetComponent<FramedPhoto>();
                 if (photo != null)
                 {
