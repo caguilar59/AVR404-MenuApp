@@ -913,9 +913,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab4887c2b7fa3742a48e437136b8d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewDetailsButton: {fileID: 0}
-  infoPanel: {fileID: 0}
-  foodNameText: {fileID: 0}
+  viewDetailsButton: {fileID: 352451621}
+  infoPanel: {fileID: 693091460}
+  foodNameText: {fileID: 1963358865}
   foodDescriptionText: {fileID: 0}
   closeButton: {fileID: 0}
 --- !u!225 &184577160
@@ -2535,9 +2535,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1330133477}
+        m_TargetAssemblyTypeName: StartupMode, Assembly-CSharp
+        m_MethodName: OnStartPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3552,9 +3552,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackedImageManager: {fileID: 607239319}
   foodDatabase: {fileID: 1939123107}
-  foodInfoUI: {fileID: 0}
+  foodInfoUI: {fileID: 184577159}
   scanUI: {fileID: 1235407938}
   mainUI: {fileID: 1506677220}
+  scanPanelName: Scan
+  trackedFoodPanelName: FoodInfo
   spawnOffset: {x: 0, y: 0.05, z: 0}
 --- !u!4 &1982542174
 Transform:

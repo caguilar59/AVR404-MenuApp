@@ -15,7 +15,7 @@ public class UIController : Singleton<UIController>
 
     CanvasGroup currentPanel;
 
-    void Awake()
+    protected override void Awake()
     {
         base.Awake();
         ResetAllUI();

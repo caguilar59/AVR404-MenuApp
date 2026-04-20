@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class FoodInfoUI : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class FoodInfoUI : MonoBehaviour
 
     private void Awake()
     {
+        AutoAssignReferences();
+
         if (viewDetailsButton != null)
             viewDetailsButton.onClick.AddListener(ShowInfoPanel);
 
@@ -34,24 +37,33 @@ public class FoodInfoUI : MonoBehaviour
 
         if (item == null)
         {
-            foodNameText.text = "";
-            foodDescriptionText.text = "";
+            if (foodNameText != null)
+                foodNameText.text = "";
+
+            if (foodDescriptionText != null)
+                foodDescriptionText.text = "";
+
             SetDetailsButtonVisible(false);
             HideInfoPanel();
             return;
         }
 
-        foodNameText.text = item.itemName;
-        foodDescriptionText.text = item.description;
+        if (foodNameText != null)
+            foodNameText.text = item.itemName;
+
+        if (foodDescriptionText != null)
+            foodDescriptionText.text = item.description;
+
         SetDetailsButtonVisible(true);
     }
 
     public void ShowInfoPanel()
     {
-        if (currentFoodItem == null || infoPanel == null)
+        if (currentFoodItem == null)
             return;
 
-        infoPanel.SetActive(true);
+        if (infoPanel != null)
+            infoPanel.SetActive(true);
     }
 
     public void HideInfoPanel()
@@ -64,5 +76,32 @@ public class FoodInfoUI : MonoBehaviour
     {
         if (viewDetailsButton != null)
             viewDetailsButton.gameObject.SetActive(isVisible);
+    }
+
+    private void AutoAssignReferences()
+    {
+        if (infoPanel == null)
+        {
+            Transform panelTransform = transform.Cast<Transform>()
+                .FirstOrDefault(child => child.name.Contains("Panel"));
+            infoPanel = panelTransform != null ? panelTransform.gameObject : gameObject;
+        }
+
+        Button[] buttons = GetComponentsInChildren<Button>(true);
+        if (viewDetailsButton == null && buttons.Length > 0)
+            viewDetailsButton = buttons[0];
+
+        if (closeButton == null && buttons.Length > 1)
+            closeButton = buttons[1];
+
+        TMP_Text[] nonButtonTexts = GetComponentsInChildren<TMP_Text>(true)
+            .Where(text => text.GetComponentInParent<Button>() == null)
+            .ToArray();
+
+        if (foodNameText == null && nonButtonTexts.Length > 0)
+            foodNameText = nonButtonTexts[0];
+
+        if (foodDescriptionText == null && nonButtonTexts.Length > 1)
+            foodDescriptionText = nonButtonTexts[1];
     }
 }

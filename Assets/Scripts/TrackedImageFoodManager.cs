@@ -13,6 +13,8 @@ public class TrackedImageFoodManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject scanUI;
     [SerializeField] private GameObject mainUI;
+    [SerializeField] private string scanPanelName = "Scan";
+    [SerializeField] private string trackedFoodPanelName = "FoodInfo";
 
     [Header("Spawn Settings")]
     [SerializeField] private Vector3 spawnOffset = new Vector3(0f, 0.1f, 0f);
@@ -53,6 +55,11 @@ public class TrackedImageFoodManager : MonoBehaviour
                 Destroy(spawnedFoods[markerName]);
                 spawnedFoods.Remove(markerName);
             }
+
+            if (currentMarkerName == markerName)
+            {
+                ResetTrackingUI();
+            }
         }
     }
 
@@ -87,22 +94,36 @@ public class TrackedImageFoodManager : MonoBehaviour
         if (foodInfoUI != null)
             foodInfoUI.SetFood(item);
 
-        if (scanUI != null)
-            scanUI.SetActive(false);
+        if (UIController.IsInitialized)
+        {
+            UIController.ShowUI(trackedFoodPanelName);
+        }
+        else
+        {
+            if (scanUI != null)
+                scanUI.SetActive(false);
 
-        if (mainUI != null)
-            mainUI.SetActive(true);
+            if (mainUI != null)
+                mainUI.SetActive(true);
+        }
     }
 
     public void ResetTrackingUI()
     {
         currentMarkerName = "";
 
-        if (scanUI != null)
-            scanUI.SetActive(true);
+        if (UIController.IsInitialized)
+        {
+            UIController.ShowUI(scanPanelName);
+        }
+        else
+        {
+            if (scanUI != null)
+                scanUI.SetActive(true);
 
-        if (mainUI != null)
-            mainUI.SetActive(false);
+            if (mainUI != null)
+                mainUI.SetActive(false);
+        }
 
         if (foodInfoUI != null)
             foodInfoUI.SetFood(null);

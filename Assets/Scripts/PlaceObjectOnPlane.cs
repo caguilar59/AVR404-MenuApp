@@ -7,17 +7,24 @@ using UnityEngine.XR.ARSubsystems;
 
 public class PlaceObjectOnPlane : MonoBehaviour
 {
-    [SerializeField]
-    GameObject placePrefab;
+    [SerializeField] private GameObject placePrefab;
 
-    ARRaycastManager raycastManager;
+    private ARRaycastManager raycastManager;
 
-    GameObject placedObject;
+    private GameObject placedObject;
 
-    static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    void PlaceObject(InputValue value)
+    private void Awake()
     {
+        raycastManager = FindObjectOfType<ARRaycastManager>();
+    }
+
+    private void PlaceObject(InputValue value)
+    {
+        if (raycastManager == null || placePrefab == null)
+            return;
+
         Vector2 touchPosition = value.Get<Vector2>();
 
         // Raycast from the touch position looking for AR planes

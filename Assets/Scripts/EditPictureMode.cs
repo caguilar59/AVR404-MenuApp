@@ -9,11 +9,11 @@ public class EditPictureMode : MonoBehaviour
 
     [SerializeField] private SelectImageMode selectImage;
 
-    private Camera camera;
+    private Camera mainCamera;
 
     void Start()
     {
-        camera = Camera.main;
+        mainCamera = Camera.main;
     }
 
     void OnEnable()
@@ -38,7 +38,7 @@ public class EditPictureMode : MonoBehaviour
 
     void FindObjectToEdit(Vector2 touchPosition)
     {
-        Ray ray = camera.ScreenPointToRay(touchPosition);
+        Ray ray = mainCamera.ScreenPointToRay(touchPosition);
         RaycastHit hit;
         int layerMask = 1 << LayerMask.NameToLayer("PlacedObjects");
 

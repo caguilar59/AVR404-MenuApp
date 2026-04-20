@@ -1,32 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.XR.CoreUtils;
 using UnityEngine.XR.ARFoundation;
 
 public class ShowTrackablesOnEnable : MonoBehaviour
 {
-    [SerializeField] ARSessionOrigin sessionOrigin;
-    ARPlaneManager planeManager;
-    ARPointCloudManager cloudManager;
-    bool isStarted;
+    [SerializeField] private XROrigin sessionOrigin;
+    private ARPlaneManager planeManager;
+    private ARPointCloudManager cloudManager;
+    private bool isStarted;
 
-    void Awake()
+    private void Awake()
     {
-        planeManager = sessionOrigin.GetComponent<ARPlaneManager>();
-        cloudManager = sessionOrigin.GetComponent<ARPointCloudManager>();
+        if (sessionOrigin != null)
+        {
+            planeManager = sessionOrigin.GetComponent<ARPlaneManager>();
+            cloudManager = sessionOrigin.GetComponent<ARPointCloudManager>();
+        }
+
+        if (planeManager == null)
+            planeManager = FindObjectOfType<ARPlaneManager>();
+
+        if (cloudManager == null)
+            cloudManager = FindObjectOfType<ARPointCloudManager>();
     }
 
-     void Start()
+    private void Start()
     {
         isStarted = true;
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         ShowTrackables(true);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         if (isStarted)
         {
@@ -35,7 +45,7 @@ public class ShowTrackablesOnEnable : MonoBehaviour
     }
 
 
-    void ShowTrackables(bool show)
+    private void ShowTrackables(bool show)
     {
         if (cloudManager)
         {
