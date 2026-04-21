@@ -896,7 +896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &184577158
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1333,6 +1333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 355438523}
   - component: {fileID: 355438524}
+  - component: {fileID: 355438525}
   m_Layer: 0
   m_Name: Main Mode
   m_TagString: Untagged
@@ -1369,6 +1370,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editMode: {fileID: 0}
   selectImage: {fileID: 0}
+--- !u!114 &355438525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355438522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab4887c2b7fa3742a48e437136b8d41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDetailsButton: {fileID: 0}
+  infoPanel: {fileID: 0}
+  foodNameText: {fileID: 0}
+  foodDescriptionText: {fileID: 0}
+  closeButton: {fileID: 0}
 --- !u!1 &607239311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,8 +1496,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedLibrary: {fileID: 11400000, guid: a77daa7c521c0d140ac7217483916231, type: 2}
-  m_MaxNumberOfMovingImages: 3
-  m_TrackedImagePrefab: {fileID: 1000011448446114, guid: 8155176e03f33f44884efb0dd767197c, type: 3}
+  m_MaxNumberOfMovingImages: 0
+  m_TrackedImagePrefab: {fileID: 0}
 --- !u!1 &645082607
 GameObject:
   m_ObjectHideFlags: 0
