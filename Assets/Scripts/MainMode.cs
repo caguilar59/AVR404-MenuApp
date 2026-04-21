@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GalleryMainMode : MonoBehaviour
+public class MainMode : MonoBehaviour
 {
     [SerializeField] private EditPictureMode editMode;
     [SerializeField] private SelectImageMode selectImage;

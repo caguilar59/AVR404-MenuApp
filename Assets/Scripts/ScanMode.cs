@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-public class ImageScanMode : MonoBehaviour
+public class ScanMode : MonoBehaviour
 {
     [SerializeField] private ARTrackedImageManager imageManager;
 

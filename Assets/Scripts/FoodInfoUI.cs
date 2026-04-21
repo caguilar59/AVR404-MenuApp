@@ -84,7 +84,9 @@ public class FoodInfoUI : MonoBehaviour
         {
             Transform panelTransform = transform.Cast<Transform>()
                 .FirstOrDefault(child => child.name.Contains("Panel"));
-            infoPanel = panelTransform != null ? panelTransform.gameObject : gameObject;
+
+            if (panelTransform != null)
+                infoPanel = panelTransform.gameObject;
         }
 
         Button[] buttons = GetComponentsInChildren<Button>(true);
@@ -103,5 +105,10 @@ public class FoodInfoUI : MonoBehaviour
 
         if (foodDescriptionText == null && nonButtonTexts.Length > 1)
             foodDescriptionText = nonButtonTexts[1];
+
+        if (infoPanel == null)
+        {
+            Debug.LogWarning($"{nameof(FoodInfoUI)} on {name} could not find an info panel automatically. Assign one in the inspector.");
+        }
     }
 }

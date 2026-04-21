@@ -10,7 +10,7 @@ public class InteractionModeDictionary : SerializableDictionaryBase<string, Game
 public class InteractionController : Singleton<InteractionController>
 {
     [SerializeField] private InteractionModeDictionary interactionModes;
-    [SerializeField] private string initialMode = "Startup";
+    [SerializeField] private string initialMode = "Title";
 
     private GameObject currentMode;
 
@@ -91,15 +91,15 @@ public class InteractionController : Singleton<InteractionController>
             return;
         }
 
-        if (interactionModes.ContainsKey("Startup"))
+        if (interactionModes.ContainsKey("Title"))
         {
-            _EnableMode("Startup");
+            _EnableMode("Title");
             return;
         }
 
-        if (interactionModes.ContainsKey("Startup Mode"))
+        if (interactionModes.ContainsKey("Title Mode"))
         {
-            _EnableMode("Startup Mode");
+            _EnableMode("Title Mode");
             return;
         }
 

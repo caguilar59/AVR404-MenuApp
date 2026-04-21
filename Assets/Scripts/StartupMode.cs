@@ -6,30 +6,27 @@ using UnityEngine.XR.ARFoundation;
 public class StartupMode : MonoBehaviour
 {
     [SerializeField] string nextMode = "Scan";
+    private bool hasHandledUnsupportedAR;
+
+    void Start()
+    {
+        UIController.ShowUI("Startup");
+    }
 
     public void OnStartPressed()
     {
         Debug.Log("Start button pressed");
 
-        UIController.ShowUI("Scan"); // switch UI
-        InteractionController.EnableMode(nextMode); // switch mode
-    }
-
-    private void OnEnable()
-    {
-        UIController.ShowUI("Startup");
+        UIController.ShowUI("Scan");
+        InteractionController.EnableMode(nextMode);
     }
 
     void Update()
     {
-        if (ARSession.state == ARSessionState.Unsupported)
+        if (!hasHandledUnsupportedAR && ARSession.state == ARSessionState.Unsupported)
         {
+            hasHandledUnsupportedAR = true;
             InteractionController.EnableMode("NonAR");
-        }
-        else if (ARSession.state >= ARSessionState.Ready)
-        {
-            // You can REMOVE this if you only want button control
-            // InteractionController.EnableMode(nextMode);
         }
     }
 }

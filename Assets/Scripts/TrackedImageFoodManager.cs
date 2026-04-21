@@ -68,7 +68,15 @@ public class TrackedImageFoodManager : MonoBehaviour
         string markerName = trackedImage.referenceImage.name;
 
         if (trackedImage.trackingState != TrackingState.Tracking)
+        {
+            if (spawnedFoods.TryGetValue(markerName, out GameObject spawnedFood) && spawnedFood != null)
+                spawnedFood.SetActive(false);
+
+            if (currentMarkerName == markerName)
+                ResetTrackingUI();
+
             return;
+        }
 
         FoodItem item = foodDatabase.GetFoodByMarkerName(markerName);
 
@@ -89,6 +97,10 @@ public class TrackedImageFoodManager : MonoBehaviour
             spawnedFood.transform.SetParent(trackedImage.transform);
 
             spawnedFoods.Add(markerName, spawnedFood);
+        }
+        else if (spawnedFoods[markerName] != null)
+        {
+            spawnedFoods[markerName].SetActive(true);
         }
 
         if (foodInfoUI != null)

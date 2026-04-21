@@ -36,7 +36,8 @@ public class AnimatedPrompt : MonoBehaviour
 
     void OnDisable()
     {
-        animationManager.FadeOffCurrentUI();
+        if (animationManager != null)
+            animationManager.FadeOffCurrentUI();
     }
 
     void ShowInstructions()
