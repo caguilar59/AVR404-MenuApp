@@ -116,6 +116,8 @@ public class TrackedImageFoodManager : MonoBehaviour
         if (foodInfoUI != null)
             foodInfoUI.SetFood(item);
 
+        UpdateInteractiveFood();
+
         if (InteractionController.IsInitialized)
             InteractionController.EnableMode(trackedFoodModeName);
 
@@ -155,6 +157,8 @@ public class TrackedImageFoodManager : MonoBehaviour
 
         if (foodInfoUI != null)
             foodInfoUI.SetFood(null);
+
+        UpdateInteractiveFood();
     }
 
     private void ConfigureSpawnedFood(GameObject spawnedFood)
@@ -167,6 +171,25 @@ public class TrackedImageFoodManager : MonoBehaviour
             rotator = spawnedFood.AddComponent<FoodDisplayRotator>();
 
         rotator.Configure(rotationAxis, rotationSpeed);
+    }
+
+    private void UpdateInteractiveFood()
+    {
+        foreach (KeyValuePair<string, GameObject> entry in spawnedFoods)
+        {
+            if (entry.Value == null)
+                continue;
+
+            FoodDisplayRotator rotator = entry.Value.GetComponent<FoodDisplayRotator>();
+            if (rotator == null)
+                continue;
+
+            bool isCurrentFood = !string.IsNullOrEmpty(currentMarkerName) &&
+                entry.Key == currentMarkerName &&
+                entry.Value.activeInHierarchy;
+
+            rotator.SetInteractionEnabled(isCurrentFood);
+        }
     }
 
     private void ResetTrackingUIIfNothingTracked()

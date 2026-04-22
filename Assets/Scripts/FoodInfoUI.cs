@@ -29,7 +29,6 @@ public class FoodInfoUI : MonoBehaviour
     private void Start()
     {
         SetDetailsButtonVisible(false);
-        HideInfoPanel();
     }
 
     public void SetFood(FoodItem item)
@@ -48,7 +47,6 @@ public class FoodInfoUI : MonoBehaviour
                 foodMacrosText.text = "";
 
             SetDetailsButtonVisible(false);
-            HideInfoPanel();
             return;
         }
 
@@ -60,6 +58,9 @@ public class FoodInfoUI : MonoBehaviour
 
         if (foodMacrosText != null)
             foodMacrosText.text = item.GetMacrosText();
+
+        if (infoPanel != null)
+            infoPanel.SetActive(true);
 
         SetDetailsButtonVisible(true);
     }
