@@ -16,8 +16,17 @@ public class TrackedImageFoodManager : MonoBehaviour
     [SerializeField] private string scanPanelName = "Scan";
     [SerializeField] private string trackedFoodPanelName = "FoodInfo";
 
+    [Header("Modes")]
+    [SerializeField] private string scanModeName = "Scan";
+    [SerializeField] private string trackedFoodModeName = "FoodInfo";
+
     [Header("Spawn Settings")]
     [SerializeField] private Vector3 spawnOffset = new Vector3(0f, 0.1f, 0f);
+
+    [Header("Display Animation")]
+    [SerializeField] private bool rotateSpawnedFood = true;
+    [SerializeField] private float rotationSpeed = 45f;
+    [SerializeField] private Vector3 rotationAxis = Vector3.up;
 
     private Dictionary<string, GameObject> spawnedFoods = new Dictionary<string, GameObject>();
     private string currentMarkerName = "";
@@ -95,6 +104,7 @@ public class TrackedImageFoodManager : MonoBehaviour
 
             GameObject spawnedFood = Instantiate(item.foodPrefab, spawnPosition, spawnRotation);
             spawnedFood.transform.SetParent(trackedImage.transform);
+            ConfigureSpawnedFood(spawnedFood);
 
             spawnedFoods.Add(markerName, spawnedFood);
         }
@@ -105,6 +115,9 @@ public class TrackedImageFoodManager : MonoBehaviour
 
         if (foodInfoUI != null)
             foodInfoUI.SetFood(item);
+
+        if (InteractionController.IsInitialized)
+            InteractionController.EnableMode(trackedFoodModeName);
 
         if (UIController.IsInitialized)
         {
@@ -124,6 +137,9 @@ public class TrackedImageFoodManager : MonoBehaviour
     {
         currentMarkerName = "";
 
+        if (InteractionController.IsInitialized)
+            InteractionController.EnableMode(scanModeName);
+
         if (UIController.IsInitialized)
         {
             UIController.ShowUI(scanPanelName);
@@ -139,6 +155,18 @@ public class TrackedImageFoodManager : MonoBehaviour
 
         if (foodInfoUI != null)
             foodInfoUI.SetFood(null);
+    }
+
+    private void ConfigureSpawnedFood(GameObject spawnedFood)
+    {
+        if (!rotateSpawnedFood || spawnedFood == null)
+            return;
+
+        FoodDisplayRotator rotator = spawnedFood.GetComponent<FoodDisplayRotator>();
+        if (rotator == null)
+            rotator = spawnedFood.AddComponent<FoodDisplayRotator>();
+
+        rotator.Configure(rotationAxis, rotationSpeed);
     }
 
     private void ResetTrackingUIIfNothingTracked()
