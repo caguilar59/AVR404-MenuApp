@@ -58,7 +58,7 @@ public class TrackedImageFoodManager : MonoBehaviour
 
             if (currentMarkerName == markerName)
             {
-                ResetTrackingUI();
+                ResetTrackingUIIfNothingTracked();
             }
         }
     }
@@ -73,7 +73,7 @@ public class TrackedImageFoodManager : MonoBehaviour
                 spawnedFood.SetActive(false);
 
             if (currentMarkerName == markerName)
-                ResetTrackingUI();
+                ResetTrackingUIIfNothingTracked();
 
             return;
         }
@@ -139,5 +139,27 @@ public class TrackedImageFoodManager : MonoBehaviour
 
         if (foodInfoUI != null)
             foodInfoUI.SetFood(null);
+    }
+
+    private void ResetTrackingUIIfNothingTracked()
+    {
+        if (HasAnyActiveTrackedImage())
+            return;
+
+        ResetTrackingUI();
+    }
+
+    private bool HasAnyActiveTrackedImage()
+    {
+        if (trackedImageManager == null)
+            return false;
+
+        foreach (ARTrackedImage trackedImage in trackedImageManager.trackables)
+        {
+            if (trackedImage != null && trackedImage.trackingState == TrackingState.Tracking)
+                return true;
+        }
+
+        return false;
     }
 }

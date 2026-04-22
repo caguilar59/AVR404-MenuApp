@@ -10,6 +10,7 @@ public class FoodInfoUI : MonoBehaviour
     [SerializeField] private GameObject infoPanel;
     [SerializeField] private TMP_Text foodNameText;
     [SerializeField] private TMP_Text foodDescriptionText;
+    [SerializeField] private TMP_Text foodMacrosText;
     [SerializeField] private Button closeButton;
 
     private FoodItem currentFoodItem;
@@ -43,6 +44,9 @@ public class FoodInfoUI : MonoBehaviour
             if (foodDescriptionText != null)
                 foodDescriptionText.text = "";
 
+            if (foodMacrosText != null)
+                foodMacrosText.text = "";
+
             SetDetailsButtonVisible(false);
             HideInfoPanel();
             return;
@@ -53,6 +57,9 @@ public class FoodInfoUI : MonoBehaviour
 
         if (foodDescriptionText != null)
             foodDescriptionText.text = item.description;
+
+        if (foodMacrosText != null)
+            foodMacrosText.text = item.GetMacrosText();
 
         SetDetailsButtonVisible(true);
     }
@@ -105,6 +112,9 @@ public class FoodInfoUI : MonoBehaviour
 
         if (foodDescriptionText == null && nonButtonTexts.Length > 1)
             foodDescriptionText = nonButtonTexts[1];
+
+        if (foodMacrosText == null && nonButtonTexts.Length > 2)
+            foodMacrosText = nonButtonTexts[2];
 
         if (infoPanel == null)
         {

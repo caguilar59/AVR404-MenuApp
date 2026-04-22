@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
 public class ImageScanMode : MonoBehaviour
 {
@@ -16,10 +17,21 @@ public class ImageScanMode : MonoBehaviour
 
     void Update()
     {
-        if (!hasEnteredMainMode && imageManager != null && imageManager.trackables.count > 0)
+        if (!hasEnteredMainMode && imageManager != null && HasActivelyTrackedImage())
         {
             hasEnteredMainMode = true;
             InteractionController.EnableMode("Main");
         }
+    }
+
+    private bool HasActivelyTrackedImage()
+    {
+        foreach (ARTrackedImage trackedImage in imageManager.trackables)
+        {
+            if (trackedImage != null && trackedImage.trackingState == TrackingState.Tracking)
+                return true;
+        }
+
+        return false;
     }
 }
