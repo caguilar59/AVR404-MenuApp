@@ -5,9 +5,12 @@ public class FoodDisplayRotator : MonoBehaviour
 {
     [SerializeField] private Vector3 rotationAxis = Vector3.up;
     [SerializeField] private float autoRotationSpeed = 45f;
-    [SerializeField] private float swipeRotationMultiplier = 0.2f;
+    [SerializeField] private float interactionSpinDegrees = 360f;
+    [SerializeField] private float interactionSpinSpeed = 540f;
+    [SerializeField] private float swipeTriggerThreshold = 12f;
 
     private bool interactionEnabled = true;
+    private float queuedSpinDegrees;
 
     public void Configure(Vector3 axis, float speed)
     {
@@ -22,19 +25,38 @@ public class FoodDisplayRotator : MonoBehaviour
 
     private void Update()
     {
-        if (TryGetSwipeDelta(out float swipeDelta))
+        bool isUserInteracting = IsUserInteracting();
+
+        if (TryGetSwipeDirection(out float swipeDirection))
         {
-            transform.Rotate(rotationAxis, -swipeDelta * swipeRotationMultiplier, Space.World);
-            return;
+            QueueInteractionSpin(swipeDirection);
         }
 
-        transform.Rotate(rotationAxis, autoRotationSpeed * Time.deltaTime, Space.Self);
+        if (Mathf.Abs(queuedSpinDegrees) > 0.01f)
+        {
+            float step = interactionSpinSpeed * Time.deltaTime;
+            float rotationStep = Mathf.Min(Mathf.Abs(queuedSpinDegrees), step) * Mathf.Sign(queuedSpinDegrees);
+            transform.Rotate(rotationAxis, rotationStep, Space.World);
+            queuedSpinDegrees -= rotationStep;
+        }
+        else if (!isUserInteracting)
+        {
+            transform.Rotate(rotationAxis, autoRotationSpeed * Time.deltaTime, Space.Self);
+        }
     }
 
-    private bool TryGetSwipeDelta(out float swipeDelta)
+    private void QueueInteractionSpin(float swipeDirection)
     {
-        swipeDelta = 0f;
+        if (Mathf.Abs(swipeDirection) <= 0f)
+            return;
 
+        queuedSpinDegrees = -Mathf.Sign(swipeDirection) * interactionSpinDegrees;
+    }
+
+    private bool TryGetSwipeDirection(out float swipeDirection)
+    {
+        swipeDirection = 0f;
+        
         if (!interactionEnabled)
             return false;
 
@@ -43,8 +65,8 @@ public class FoodDisplayRotator : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved && !IsTouchOverUI(touch.fingerId))
             {
-                swipeDelta = touch.deltaPosition.x;
-                return Mathf.Abs(swipeDelta) > 0f;
+                swipeDirection = touch.deltaPosition.x;
+                return Mathf.Abs(swipeDirection) >= swipeTriggerThreshold;
             }
 
             return false;
@@ -52,8 +74,8 @@ public class FoodDisplayRotator : MonoBehaviour
 
         if (Input.GetMouseButton(0) && !IsPointerOverUI())
         {
-            swipeDelta = Input.GetAxis("Mouse X") * 20f;
-            return Mathf.Abs(swipeDelta) > 0f;
+            swipeDirection = Input.GetAxis("Mouse X") * 20f;
+            return Mathf.Abs(swipeDirection) >= swipeTriggerThreshold;
         }
 
         return false;
@@ -67,5 +89,20 @@ public class FoodDisplayRotator : MonoBehaviour
     private static bool IsPointerOverUI()
     {
         return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+    }
+
+    private bool IsUserInteracting()
+    {
+        if (!interactionEnabled)
+            return false;
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (!IsTouchOverUI(touch.fingerId))
+                return true;
+        }
+
+        return Input.GetMouseButton(0) && !IsPointerOverUI();
     }
 }
