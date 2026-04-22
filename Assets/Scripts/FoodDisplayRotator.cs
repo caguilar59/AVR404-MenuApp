@@ -6,8 +6,8 @@ public class FoodDisplayRotator : MonoBehaviour
     [SerializeField] private Vector3 rotationAxis = Vector3.up;
     [SerializeField] private float autoRotationSpeed = 45f;
     [SerializeField] private float interactionSpinDegrees = 360f;
-    [SerializeField] private float interactionSpinSpeed = 540f;
-    [SerializeField] private float swipeTriggerThreshold = 12f;
+    [SerializeField] private float interactionSpinSpeed = 300f;
+    [SerializeField] private float swipeTriggerThreshold = 28f;
 
     private bool interactionEnabled = true;
     private float queuedSpinDegrees;
