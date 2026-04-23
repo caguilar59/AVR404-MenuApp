@@ -5,6 +5,9 @@ using System.Linq;
 
 public class FoodInfoUI : MonoBehaviour
 {
+    private const string AccentColor = "#B85C38";
+    private const string BodyColor = "#3A2C23";
+
     [Header("UI References")]
     [SerializeField] private Button viewDetailsButton;
     [SerializeField] private GameObject infoPanel;
@@ -54,10 +57,10 @@ public class FoodInfoUI : MonoBehaviour
             foodNameText.text = item.itemName;
 
         if (foodDescriptionText != null)
-            foodDescriptionText.text = item.description;
+            foodDescriptionText.text = FormatDescription(item);
 
         if (foodMacrosText != null)
-            foodMacrosText.text = item.GetMacrosText();
+            foodMacrosText.text = FormatNutrition(item);
 
         if (infoPanel != null)
             infoPanel.SetActive(true);
@@ -83,7 +86,28 @@ public class FoodInfoUI : MonoBehaviour
     public void SetDetailsButtonVisible(bool isVisible)
     {
         if (viewDetailsButton != null)
+        {
             viewDetailsButton.gameObject.SetActive(isVisible);
+            viewDetailsButton.interactable = isVisible;
+        }
+    }
+
+    private static string FormatDescription(FoodItem item)
+    {
+        if (!string.IsNullOrWhiteSpace(item.description))
+            return item.description.Trim();
+
+        return "A featured menu item ready to explore in AR.";
+    }
+
+    private static string FormatNutrition(FoodItem item)
+    {
+        return
+            $"<size=90%><b><color={AccentColor}>Nutrition facts</color></b></size>\n" +
+            $"<b><color={BodyColor}>Calories</color></b>  <color={BodyColor}>{item.calories} kcal</color>\n" +
+            $"<b><color={BodyColor}>Protein</color></b>  <color={BodyColor}>{item.protein:0.#} g</color>\n" +
+            $"<b><color={BodyColor}>Carbs</color></b>  <color={BodyColor}>{item.carbs:0.#} g</color>\n" +
+            $"<b><color={BodyColor}>Fat</color></b>  <color={BodyColor}>{item.fat:0.#} g</color>";
     }
 
     private void AutoAssignReferences()
