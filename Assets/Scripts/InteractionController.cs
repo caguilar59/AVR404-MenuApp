@@ -11,6 +11,7 @@ public class InteractionController : Singleton<InteractionController>
 {
     [SerializeField] private InteractionModeDictionary interactionModes;
     [SerializeField] private string initialMode = "Title";
+    [SerializeField] private bool alwaysStartAtTitle = true;
 
     private GameObject currentMode;
 
@@ -85,21 +86,36 @@ public class InteractionController : Singleton<InteractionController>
     }
     private void Start()
     {
-        if (interactionModes.ContainsKey(initialMode))
+        if (alwaysStartAtTitle)
         {
-            _EnableMode(initialMode);
+            if (TryGetModeObject("Title", out GameObject titleModeObject))
+            {
+                StartCoroutine(ChangeMode(titleModeObject));
+                return;
+            }
+
+            if (TryGetModeObject("Title Mode", out titleModeObject))
+            {
+                StartCoroutine(ChangeMode(titleModeObject));
+                return;
+            }
+        }
+
+        if (TryGetModeObject(initialMode, out GameObject initialModeObject))
+        {
+            StartCoroutine(ChangeMode(initialModeObject));
             return;
         }
 
-        if (interactionModes.ContainsKey("Title"))
+        if (TryGetModeObject("Title", out GameObject fallbackTitleModeObject))
         {
-            _EnableMode("Title");
+            StartCoroutine(ChangeMode(fallbackTitleModeObject));
             return;
         }
 
-        if (interactionModes.ContainsKey("Title Mode"))
+        if (TryGetModeObject("Title Mode", out GameObject fallbackTitleModeObjectWithSuffix))
         {
-            _EnableMode("Title Mode");
+            StartCoroutine(ChangeMode(fallbackTitleModeObjectWithSuffix));
             return;
         }
 
