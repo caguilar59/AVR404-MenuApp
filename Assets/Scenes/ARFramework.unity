@@ -723,7 +723,7 @@ RectTransform:
   m_GameObject: {fileID: 97211694}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1351393455}
@@ -1942,6 +1942,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adab2cba1e1b246459a2e07ac516ab16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextMode: Startup
+  titlePanelName: Title
+  nextPanelName: Startup
 --- !u!1 &1091855899
 GameObject:
   m_ObjectHideFlags: 0
