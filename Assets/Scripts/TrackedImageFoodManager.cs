@@ -78,7 +78,8 @@ public class TrackedImageFoodManager : MonoBehaviour
 
         if (trackedImage.trackingState != TrackingState.Tracking)
         {
-            if (spawnedFoods.TryGetValue(markerName, out GameObject spawnedFood) && spawnedFood != null)
+            GameObject spawnedFood;
+            if (spawnedFoods.TryGetValue(markerName, out spawnedFood) && spawnedFood != null)
                 spawnedFood.SetActive(false);
 
             if (currentMarkerName == markerName)

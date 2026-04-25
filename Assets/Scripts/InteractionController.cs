@@ -47,8 +47,7 @@ public class InteractionController : Singleton<InteractionController>
         }
 
     }
-
-    private bool TryGetModeObject(string name, out GameObject modeObject)
+private bool TryGetModeObject(string name, out GameObject modeObject)
     {
         if (interactionModes.TryGetValue(name, out modeObject))
             return true;
@@ -65,8 +64,7 @@ public class InteractionController : Singleton<InteractionController>
             .FirstOrDefault(pair => string.Equals(pair.Key, name, System.StringComparison.OrdinalIgnoreCase)).Value;
         if (modeObject != null)
             return true;
-
-        modeObject = interactionModes
+modeObject = interactionModes
             .FirstOrDefault(pair => string.Equals(pair.Key, withSuffix, System.StringComparison.OrdinalIgnoreCase)).Value;
         return modeObject != null;
     }
@@ -86,36 +84,38 @@ public class InteractionController : Singleton<InteractionController>
     }
     private void Start()
     {
+        GameObject modeObject;
+
         if (alwaysStartAtTitle)
         {
-            if (TryGetModeObject("Title", out GameObject titleModeObject))
+            if (TryGetModeObject("Title", out modeObject))
             {
-                StartCoroutine(ChangeMode(titleModeObject));
+                StartCoroutine(ChangeMode(modeObject));
                 return;
             }
 
-            if (TryGetModeObject("Title Mode", out titleModeObject))
+            if (TryGetModeObject("Title Mode", out modeObject))
             {
-                StartCoroutine(ChangeMode(titleModeObject));
+                StartCoroutine(ChangeMode(modeObject));
                 return;
             }
         }
 
-        if (TryGetModeObject(initialMode, out GameObject initialModeObject))
+        if (TryGetModeObject(initialMode, out modeObject))
         {
-            StartCoroutine(ChangeMode(initialModeObject));
+            StartCoroutine(ChangeMode(modeObject));
             return;
         }
 
-        if (TryGetModeObject("Title", out GameObject fallbackTitleModeObject))
+        if (TryGetModeObject("Title", out modeObject))
         {
-            StartCoroutine(ChangeMode(fallbackTitleModeObject));
+            StartCoroutine(ChangeMode(modeObject));
             return;
         }
 
-        if (TryGetModeObject("Title Mode", out GameObject fallbackTitleModeObjectWithSuffix))
+        if (TryGetModeObject("Title Mode", out modeObject))
         {
-            StartCoroutine(ChangeMode(fallbackTitleModeObjectWithSuffix));
+            StartCoroutine(ChangeMode(modeObject));
             return;
         }
 
